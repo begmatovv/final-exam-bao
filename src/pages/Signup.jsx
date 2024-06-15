@@ -64,7 +64,7 @@ function Signup() {
         </button>
 
         <p className="text-center">
-          <Link to="/login" className="btn btn-secondary btn-block capitalize">
+          <Link to="/signin" className="btn btn-secondary btn-block capitalize">
             I have an account
           </Link>
         </p>

@@ -49,7 +49,7 @@ function App() {
       ],
     },
     {
-      path: "/login",
+      path: "/signin",
       element: user ? <Navigate to="/" /> : <Signin />,
       action: signinAction,
     },
