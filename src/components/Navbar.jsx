@@ -6,6 +6,7 @@ import { auth } from "../firebase/firebaseConfig";
 import { signOut } from "firebase/auth";
 import { AiOutlineShoppingCart } from "react-icons/ai";
 import fetchWeather from "../utils";
+import Weather from "./Weather";
 const themes = {
   winter: "winter",
   dracula: "dracula",
@@ -14,30 +15,6 @@ function LocalStorageTheme() {
   return localStorage.getItem("mode") || themes.winter;
 }
 const Navbar = () => {
-  const [weather, setWeather] = useState(null); // State to hold weather data
-  const [error, setError] = useState(null); // State to hold error message
-
-  useEffect(() => {
-    // Fetch weather based on user's location
-    const fetchWeatherData = async () => {
-      try {
-        // Get user's location using Geolocation API
-        navigator.geolocation.getCurrentPosition(async (position) => {
-          const latitude = position.coords.latitude;
-          const longitude = position.coords.longitude;
-
-          // Fetch weather data using coordinates
-          const weatherData = await fetchWeather(latitude, longitude);
-          setWeather(weatherData);
-        });
-      } catch (error) {
-        console.error("Error fetching location:", error);
-        setError("Failed to fetch location. Please allow location access.");
-      }
-    };
-
-    fetchWeatherData();
-  }, []);
   const numItemsInCart = useSelector((state) => state.cartState.numItemsInCart);
   const { user } = useSelector((state) => state.userState);
   const [theme, setTheme] = useState(LocalStorageTheme());
@@ -59,17 +36,9 @@ const Navbar = () => {
             Kitchen app
           </Link>
           <Link className="btn btn-primary flex lg:hidden">MK</Link>
+          
         </div>
-        <div>
-          {weather && (
-            <div className="weather-info">
-              <h2>Current Weather</h2>
-              <p>Temperature: {weather.main.temp} °C</p>
-              <p>Humidity: {weather.main.humidity}%</p>
-              <p>Weather: {weather.weather[0].description}</p>
-            </div>
-          )}
-        </div>
+        <Weather />
         <div className="navbar-end">
           <Link to="/cart" className="indicator mr-3">
             <AiOutlineShoppingCart className="w-6 h-6 " />
@@ -94,6 +63,9 @@ const Navbar = () => {
             >
               <li>
                 <Link to="/">Home</Link>
+              </li>
+              <li>
+                <Link to="/chart">Chart</Link>
               </li>
               <li>
                 <Link to="/create">Create a recept</Link>

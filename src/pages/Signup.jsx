@@ -23,6 +23,7 @@ function Signup() {
   }, [data]);
   return (
     <div className="h-screen grid place-content-center">
+      <video className="video-background"  autoPlay loop muted />
       <Form
         method="post"
         className="card w-96 p-8 bg-base-100 shadow-lg flex flex-col gap-y-4"

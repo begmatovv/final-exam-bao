@@ -17,6 +17,7 @@ import { action as signupAction } from "./pages/Signup";
 import { action as signinAction } from "./pages/Signin";
 
 import { loader as singleReceptLoader } from "./components/SingleRecept";
+import ChartPage from "./pages/ChartPage";
 
 function App() {
   const { user, authReadyState } = useSelector((state) => state.userState);
@@ -45,6 +46,10 @@ function App() {
         {
           path: "/cart",
           element: <Cart />,
+        },
+        {
+          path: "/chart",
+          element: <ChartPage />,
         },
       ],
     },

@@ -10,6 +10,8 @@ const Create = () => {
   const navigate = useNavigate();
   const [ingredient, setIngredient] = useState("");
   const [ingredients, setIngredients] = useState([]);
+  const [category, setCategory] = useState("");
+
   console.log(user.uid);
   const addIngredient = () => {
     if (ingredient.trim() !== "") {
@@ -26,15 +28,16 @@ const Create = () => {
     const cookingTime = formData.get("cookingTime");
     const method = formData.get("method");
     const image = formData.get("image");
-    const type = formData.get("type");
+    const category = formData.get("category");
 
     const newRecept = {
       title,
       cookingTime: Number(cookingTime), // Convert to number if needed
       method,
       image,
-      type,
+      category,
       ingredients,
+
       uid: user.uid,
     };
 
@@ -50,7 +53,7 @@ const Create = () => {
   };
 
   return (
-    <div className="align-element">
+    <div className="max-w-[700px] mx-auto">
       <h1 className="text-center text-5xl mb-10">Create New Recipe</h1>
       <Form onSubmit={handleSubmit} method="POST">
         <FormInput label="Title" type="text" name="title" />
@@ -82,13 +85,34 @@ const Create = () => {
             ))}
           </p>
         </div>
-        <FormInput label="Meal type" type="text" name="type" />
+        <label className="form-control w-full mb-3">
+          <span>Category</span>
+          <select
+            name="category"
+            onChange={(e) => {
+              setCategory(e.target.value);
+            }}
+            className="select select-bordered mt-3 w-full "
+            value={category}
+          >
+            <option value="milliyTaom">Uzbek traditional meals</option>
+            <option value="fastFood">Fast foods</option>
+            <option value="turkTaom">Turkish meals</option>
+            <option value="yaponTaomi">Japanese foods</option>
+            <option value="yevropaTaomi">European kitchen</option>
+          </select>
+        </label>
+
         <FormInput label="Photo URL" type="url" name="image" />
         <FormInput label="Cooking Time" type="number" name="cookingTime" />
         <FormInput label="Method" type="text" name="method" />
-        <div className="btns flex gap-x-5">
-          <button className="btn btn-info w-1/2">Apply</button>
-          <button className="btn btn-success w-1/2">Preview</button>
+        <div className="flex gap-x-5">
+          <button type="submit" className="btn btn-info w-1/2">
+            Apply
+          </button>
+          <button type="button" className="btn btn-success w-1/2">
+            Preview
+          </button>
         </div>
       </Form>
     </div>

@@ -5,7 +5,7 @@ const MainLayout = () => {
   return (
     <>
       <Navbar />
-      <main className="align-element">
+      <main className="align-element mb-10 flex-grow">
         <Outlet />
       </main>
     </>

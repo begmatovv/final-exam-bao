@@ -1,9 +1,10 @@
 import { Link, useLoaderData } from "react-router-dom";
 
-import { editItem } from "../features/cart/cartSlice";
+import { addItem } from "../features/cart/cartSlice";
 import { doc, getDoc } from "firebase/firestore";
 import { db } from "../firebase/firebaseConfig";
 import { useDispatch } from "react-redux";
+import { useState } from "react";
 export const loader = async ({ params }) => {
   const docRef = doc(db, "recepts", params.id);
   const docSnap = await getDoc(docRef);
@@ -17,12 +18,26 @@ export const loader = async ({ params }) => {
 const SingleRecept = () => {
   const dispatch = useDispatch();
   const data = useLoaderData();
+  const [itemNum, setItemNum] = useState(1);
+  const plusFunc = () => {
+    setItemNum(itemNum + 1);
+  };
 
-  const addToCart = () => {
-    // Assuming cartID is unique and generated elsewhere (e.g., UUID)
-    dispatch(editItem({ cartID: data.id, amount: 1 }));
-    // Optionally, you might want to show a confirmation or update UI to reflect addition
-    console.log("Added to cart:", data.title);
+  const minusFunc = () => {
+    if (itemNum > 1) {
+      setItemNum(itemNum - 1);
+    }
+  };
+  const addToChartHandler = () => {
+    const cartProduct = {
+      id: crypto.randomUUID(),
+      quantity: itemNum,
+      title: data.title,
+      image: data.image,
+      cookingTime: data.cookingTime,
+    };
+    dispatch(addItem(cartProduct));
+    toast.success("Added to cart succesfully ");
   };
 
   return (
@@ -60,12 +75,25 @@ const SingleRecept = () => {
             <p className="text-xl font-medium mb-3">Method</p>
             <p>{data.method}</p>
           </div>
-          <button
-            onClick={addToCart}
-            className="btn btn-secondary btn-md capitalize"
-          >
-            Add to Bag
-          </button>
+          <div className="mb-5 text-center flex gap-10">
+            <div className="flex  items-center gap-5">
+              <button className="btn  text-2xl" onClick={minusFunc}>
+                -
+              </button>
+              <span className=" btn text-lg font-semibold">{itemNum}</span>
+              <button className="btn  text-2xl" onClick={plusFunc}>
+                +
+              </button>
+            </div>
+            <div>
+              <button
+                onClick={addToChartHandler}
+                className="btn btn-primary text-white text-lg "
+              >
+                Add to Cart
+              </button>
+            </div>
+          </div>
         </div>
       )}
       <div className="text-right">

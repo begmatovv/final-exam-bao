@@ -4,7 +4,6 @@ import { useState } from "react";
 const useCreate = () => {
   const [data, setData] = useState(null);
   const addNewDoc = async (recept) => {
-  
     const docRef = await addDoc(collection(db, "recepts"), recept);
     console.log(docRef);
     setData(docRef);
@@ -12,4 +11,4 @@ const useCreate = () => {
   return { data, addNewDoc };
 };
 
-export default useCreate;
+export { useCreate };

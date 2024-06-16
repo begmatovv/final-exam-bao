@@ -3,11 +3,7 @@ import { IoTrashOutline } from "react-icons/io5";
 import { deleteDoc, doc } from "firebase/firestore";
 import { db } from "../firebase/firebaseConfig";
 import toast from "react-hot-toast";
-import { useSelector } from "react-redux";
 const ReceptsList = ({ recepts }) => {
-  const { user } = useSelector((state) => state.userState);
-  
-
   const handleDelete = (taskId) => {
     const taskRef = doc(db, "recepts", taskId);
     deleteDoc(taskRef)
@@ -20,7 +16,7 @@ const ReceptsList = ({ recepts }) => {
   };
   return (
     <div>
-      <h1 className="mb-5 text-4xl font-bold text-center"> My Recepts</h1>
+      <h1 className="mb-5 text-4xl font-bold text-center">My Recepts</h1>
       <div className="grid lg:grid-cols-3 md:grid-cols-2 grid-cols-1 gap-5 ">
         {recepts.map((recept) => {
           return (
@@ -44,7 +40,6 @@ const ReceptsList = ({ recepts }) => {
                   >
                     Read more
                   </Link>
-
                   <button
                     onClick={() => handleDelete(recept.id)}
                     className="btn btn-secondary"
