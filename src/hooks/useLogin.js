@@ -13,7 +13,7 @@ export function useLogin() {
       })
       .catch((error) => {
         const errorMessage = error.message;
-        toast.error(errorMessage);
+        console.log(errorMessage);
       });
   };
 

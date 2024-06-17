@@ -23,7 +23,7 @@ export function useRegister() {
       })
       .catch((error) => {
         const errorMessage = error.message;
-        toast.error(errorMessage);
+        console.log(errorMessage);
       });
   };
   const registerWithGoogle = () => {

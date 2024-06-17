@@ -4,6 +4,7 @@ import FormInput from "../components/FormInput";
 import { useSelector } from "react-redux";
 import { addDoc, collection } from "firebase/firestore";
 import { db } from "../firebase/firebaseConfig";
+import toast from "react-hot-toast";
 
 const Create = () => {
   const { user } = useSelector((state) => state.userState);
@@ -13,8 +14,8 @@ const Create = () => {
   const [category, setCategory] = useState("");
   const [price, setPrice] = useState("");
 
-  const [imageInput, setImageInput] = useState(""); 
-  const [images, setImages] = useState([]); 
+  const [imageInput, setImageInput] = useState("");
+  const [images, setImages] = useState([]);
 
   const addIngredient = () => {
     if (ingredient.trim() !== "") {
@@ -25,9 +26,10 @@ const Create = () => {
   const addImage = () => {
     if (imageInput.trim() !== "") {
       setImages([...images, imageInput.trim()]);
-      setImageInput(""); 
+      toast.success("image added successfully!!");
+      setImageInput("");
     }
-  }
+  };
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -113,32 +115,26 @@ const Create = () => {
         </label>
 
         <div className="flex justify-center flex-col">
-  <div className="flex items-center gap-5 w-full">
-    <label className="form-control w-full mb-3">
-      <span className="mb-3">Image URL</span>
-      <input
-        onChange={(e) => setImageInput(e.target.value)}
-        type="url"
-        placeholder="Type here"
-        className="input input-bordered w-full"
-        value={imageInput}
-      />
-    </label>
-    <button
-      onClick={addImage}
-      type="button"
-      className="btn btn-secondary flex mt-7"
-    >
-      Add
-    </button>
-  </div>
-  <p className="text-left mt-2 mb-3">
-    Images:{" "}
-    {images.map((img, index) => (
-      <span key={index}>{img}, </span>
-    ))}
-  </p>
-</div>
+          <div className="flex items-center gap-5 w-full">
+            <label className="form-control w-full mb-3">
+              <span className="mb-3">Image URL</span>
+              <input
+                onChange={(e) => setImageInput(e.target.value)}
+                type="url"
+                placeholder="Type here"
+                className="input input-bordered w-full"
+                value={imageInput}
+              />
+            </label>
+            <button
+              onClick={addImage}
+              type="button"
+              className="btn btn-secondary flex mt-7"
+            >
+              Add
+            </button>
+          </div>
+        </div>
 
         <FormInput label="Cooking Time" type="number" name="cookingTime" />
         <FormInput label="Method" type="text" name="method" />
