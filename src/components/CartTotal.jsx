@@ -30,6 +30,7 @@ const CartTotal = () => {
             <input
               type="text"
               value={promoCode}
+              placeholder="BAO"
               onChange={(e) => setPromoCode(e.target.value)}
               className="outline-none bg-base-300 rounded-md p-3"
             />

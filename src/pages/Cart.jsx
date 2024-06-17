@@ -1,16 +1,23 @@
-
 import React from "react";
 import { useSelector } from "react-redux";
 import { CartTotal } from "../components";
 import CartItem from "../components/CartItem";
+import video from "../video/vid.mp4";
 
 const Cart = () => {
   const cartItems = useSelector((state) => state.cartState.items);
 
   if (cartItems.length === 0) {
     return (
-      <div className="flex items-center justify-center h-screen">
-        <p className="text-2xl">Your cart is Empty</p>
+      <div className="flex flex-col items-center justify-center ">
+        <p className="text-3xl">Your cart is Empty...</p>
+        <video
+          src={video}
+          autoPlay
+          loop
+          muted
+          className="bg-white h-screen w-full"
+        />
       </div>
     );
   }
