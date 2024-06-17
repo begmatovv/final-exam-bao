@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useRef, useState } from "react";
 import { Form, useNavigate } from "react-router-dom";
 import FormInput from "../components/FormInput";
 import { useSelector } from "react-redux";
@@ -11,14 +11,23 @@ const Create = () => {
   const [ingredient, setIngredient] = useState("");
   const [ingredients, setIngredients] = useState([]);
   const [category, setCategory] = useState("");
+  const [price, setPrice] = useState("");
 
-  console.log(user.uid);
+  const [imageInput, setImageInput] = useState(""); 
+  const [images, setImages] = useState([]); 
+
   const addIngredient = () => {
     if (ingredient.trim() !== "") {
       setIngredients([...ingredients, ingredient.trim()]);
-      setIngredient(""); // Clear input field after adding ingredient
+      setIngredient("");
     }
   };
+  const addImage = () => {
+    if (imageInput.trim() !== "") {
+      setImages([...images, imageInput.trim()]);
+      setImageInput(""); 
+    }
+  }
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -27,16 +36,17 @@ const Create = () => {
     const title = formData.get("title");
     const cookingTime = formData.get("cookingTime");
     const method = formData.get("method");
-    const image = formData.get("image");
     const category = formData.get("category");
+    const price = formData.get("price");
 
     const newRecept = {
       title,
-      cookingTime: Number(cookingTime), // Convert to number if needed
+      cookingTime: Number(cookingTime),
       method,
-      image,
+      images,
       category,
       ingredients,
+      price: Number(price),
 
       uid: user.uid,
     };
@@ -44,11 +54,9 @@ const Create = () => {
     addDoc(collection(db, "recepts"), newRecept)
       .then(() => {
         navigate("/");
-        // Optionally, you can add a toast message or redirect to another page upon success
       })
       .catch((error) => {
         console.error("Error adding Recept: ", error);
-        // Handle error - show toast or alert
       });
   };
 
@@ -72,7 +80,7 @@ const Create = () => {
             </label>
             <button
               onClick={addIngredient}
-              type="button" // Change to type="button" since it's not submitting the form
+              type="button"
               className="btn btn-secondary flex mt-7"
             >
               Add
@@ -92,20 +100,49 @@ const Create = () => {
             onChange={(e) => {
               setCategory(e.target.value);
             }}
-            className="select select-bordered mt-3 w-full "
-            value={category}
+            className="select select-bordered mt-3 w-full"
           >
-            <option value="milliyTaom">Uzbek traditional meals</option>
-            <option value="fastFood">Fast foods</option>
-            <option value="turkTaom">Turkish meals</option>
-            <option value="yaponTaomi">Japanese foods</option>
-            <option value="yevropaTaomi">European kitchen</option>
+            <option value="Uzbek traditional meals">
+              Uzbek traditional meals
+            </option>
+            <option value="Turkish meals">Turkish meals</option>
+            <option value="Japanese foods">Japanese foods</option>
+            <option value="Fast Food">Fast foods</option>
+            <option value="European kitchen">European kitchen</option>
           </select>
         </label>
 
-        <FormInput label="Photo URL" type="url" name="image" />
+        <div className="flex justify-center flex-col">
+  <div className="flex items-center gap-5 w-full">
+    <label className="form-control w-full mb-3">
+      <span className="mb-3">Image URL</span>
+      <input
+        onChange={(e) => setImageInput(e.target.value)}
+        type="url"
+        placeholder="Type here"
+        className="input input-bordered w-full"
+        value={imageInput}
+      />
+    </label>
+    <button
+      onClick={addImage}
+      type="button"
+      className="btn btn-secondary flex mt-7"
+    >
+      Add
+    </button>
+  </div>
+  <p className="text-left mt-2 mb-3">
+    Images:{" "}
+    {images.map((img, index) => (
+      <span key={index}>{img}, </span>
+    ))}
+  </p>
+</div>
+
         <FormInput label="Cooking Time" type="number" name="cookingTime" />
         <FormInput label="Method" type="text" name="method" />
+        <FormInput label="Price" type="number" name="price" />
         <div className="flex gap-x-5">
           <button type="submit" className="btn btn-info w-1/2">
             Apply

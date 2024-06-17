@@ -1,9 +1,16 @@
-import React, { useState, useEffect } from "react";
+import { useSelector } from "react-redux";
+import { useCollection } from "../hooks/useCollection";
+import { useState, useEffect } from "react";
 import Chart from "react-apexcharts";
-import { getDocs, collection } from "firebase/firestore";
-import { db } from "../firebase/firebaseConfig";
 
-const Bar = () => {
+function Bar() {
+  const { user } = useSelector((state) => state.userState);
+  const { data: recipe } = useCollection("recepts", [
+    "uid",
+    "==",
+    user.uid,
+  ]);
+
   const [options, setOptions] = useState({
     chart: {
       id: "basic-bar",
@@ -21,52 +28,39 @@ const Bar = () => {
   ]);
 
   useEffect(() => {
-    const fetchRecipes = async () => {
-      try {
-        const querySnapshot = await getDocs(collection(db, "recepts"));
-        const recipesData = querySnapshot.docs.map((doc) => doc.data());
-        if (recipesData.length > 0) {
-          const categories = recipesData.map(
-            (recipe) => recipe.title || "Unnamed Recipe"
-          );
-          const cookingTime = recipesData.map(
-            (recipe) => recipe.cookingTime + "minutes"
-          );
+    if (recipe && recipe.length > 0) {
+      const categories = recipe.map((recipeItem) => recipeItem.title);
+      const cookingTime = recipe.map((recipeItem) => recipeItem.cookingTime);
 
-          setOptions((prevOptions) => ({
-            ...prevOptions,
-            xaxis: {
-              categories: categories,
-            },
-          }));
-
-          setSeries([
-            {
-              name: "Cooking Time",
-              data: cookingTime,
-            },
-          ]);
-        } else {
-          console.error("No data found in the recipes collection.");
-        }
-      } catch (error) {
-        console.error("Error fetching recipes data:", error);
-      }
-    };
-
-    fetchRecipes();
-  }, []);
+      setOptions((prevOptions) => ({
+        ...prevOptions,
+        xaxis: {
+          categories: categories,
+        },
+      }));
+      setSeries([
+        {
+          name: "Cooking Time",
+          data: cookingTime,
+        },
+      ]);
+    } else {
+      console.error("No data found in the recepies collection");
+    }
+  }, [recipe]);
 
   return (
     <div className="app">
-      <h2 className="font-bold">Cooking time</h2>
+      <h2 className="font-bold text-xl mb-5 text-center">
+        According to cooking time (in minutes)
+      </h2>
       <div className="row">
-        <div className="mixed-chart">
+        <div className="mixed-chart w-full">
           <Chart options={options} series={series} type="bar" width="480" />
         </div>
       </div>
     </div>
   );
-};
+}
 
 export default Bar;

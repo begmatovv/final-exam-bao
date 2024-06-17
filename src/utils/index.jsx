@@ -20,19 +20,3 @@ export const generateAmountOptions = (number) => {
 };
 
 
-
-const API_KEY = 'your_openweathermap_api_key';
-
-const fetchWeather = async (latitude, longitude) => {
-  const url = `https://api.openweathermap.org/data/2.5/weather?lat=${latitude}&lon=${longitude}&units=metric&appid=${API_KEY}`;
-  
-  try {
-    const response = await axios.get(url);
-    return response.data;
-  } catch (error) {
-    console.error('Error fetching weather:', error);
-    return null;
-  }
-};
-
-export default fetchWeather;

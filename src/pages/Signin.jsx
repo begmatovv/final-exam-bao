@@ -4,6 +4,7 @@ import { useLogin } from "../hooks/useLogin";
 import { useEffect } from "react";
 import { FcGoogle } from "react-icons/fc";
 import { useRegister } from "../hooks/useRegister";
+import video from "../video/video1.mp4";
 
 export const action = async ({ request }) => {
   let formData = await request.formData();
@@ -22,9 +23,16 @@ function Signin() {
   }, [data]);
   return (
     <div className="h-screen grid place-content-center">
+      <video
+        src={video}
+        autoPlay
+        loop
+        muted
+        className="h-full object-cover absolute inset-0 w-full"
+      />
       <Form
         method="post"
-        className="card w-96 p-8 bg-base-100 shadow-lg flex flex-col gap-y-4"
+        className="card w-96 p-8 bg-base-100 opacity-85 shadow-lg flex flex-col gap-y-4"
       >
         <h4 className="text-center font-bold text-3xl">Login</h4>
         <FormInput
@@ -40,7 +48,7 @@ function Signin() {
           defaultvalue="00000000"
         />
         <button className=" mt-4 btn btn-primary btn-block capitalize">
-          <SubmitBtn text="Login"/>
+          <SubmitBtn text="Login" />
         </button>
         <button
           onClick={registerWithGoogle}
@@ -50,7 +58,10 @@ function Signin() {
           <span className="text-2xl">Google</span>
         </button>
         <p className="text-center">
-          <Link to="/register" className="btn btn-secondary btn-block capitalize">
+          <Link
+            to="/register"
+            className="btn btn-secondary btn-block capitalize"
+          >
             I have no account yet
           </Link>
         </p>

@@ -3,7 +3,7 @@ import { Link, Form, useActionData } from "react-router-dom";
 import { useRegister } from "../hooks/useRegister";
 import { useEffect } from "react";
 import { FcGoogle } from "react-icons/fc";
-
+import video from "../video/video1.mp4";
 export const action = async ({ request }) => {
   let formData = await request.formData();
   let displayName = formData.get("displayName");
@@ -23,10 +23,16 @@ function Signup() {
   }, [data]);
   return (
     <div className="h-screen grid place-content-center">
-      <video className="video-background"  autoPlay loop muted />
+      <video
+        src={video}
+        autoPlay
+        loop
+        muted
+        className="h-full object-cover absolute inset-0 w-full"
+      />
       <Form
         method="post"
-        className="card w-96 p-8 bg-base-100 shadow-lg flex flex-col gap-y-4"
+        className="card w-96 p-8 bg-base-100 opacity-85 shadow-lg flex flex-col gap-y-3"
       >
         <h4 className="text-center font-bold text-3xl">Register</h4>
         <FormInput
@@ -53,7 +59,7 @@ function Signup() {
           name="password"
           defaultvalue="00000000"
         />
-        <button className=" mt-3 btn btn-primary btn-block capitalize">
+        <button className=" mt-2 btn btn-primary btn-block capitalize">
           <SubmitBtn text="Sign Up" />
         </button>
         <button

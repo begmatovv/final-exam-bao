@@ -3,7 +3,7 @@ import { Bar, PieChart } from "../components";
 
 function ChartPage() {
   return (
-    <div className="flex px-10 mt-10 flex-col justify-between items-center">
+    <div className="flex lg:flex-row flex-col justify-between  items-center">
       <PieChart />
       <Bar />
     </div>

@@ -23,13 +23,18 @@ const ReceptsList = ({ recepts }) => {
             <div key={recept.id} className="card  bg-base-100 shadow-xl">
               <figure>
                 <img
-                  src={recept.image}
+                  src={recept.images[0]}
                   alt="Shoes"
-                  className=" h-[200px] w-full object-cover md:h-auto  "
+                  className=" object-cover w-full h-52 "
                 />
               </figure>
               <div className="card-body">
-                <h2 className="card-title text-xl">{recept.title}</h2>
+                <div className="flex items-center justify-between">
+                  <h2 className="card-title text-xl">{recept.title}</h2>
+                  <span className="font-bold text-xl text-base-300">
+                    {recept.price}.00$
+                  </span>
+                </div>
                 <span className="">{recept.cookingTime} minutes</span>
                 <p className="line-clamp-3">{recept.method}</p>
 

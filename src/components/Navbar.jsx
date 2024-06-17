@@ -5,7 +5,6 @@ import { useSelector } from "react-redux";
 import { auth } from "../firebase/firebaseConfig";
 import { signOut } from "firebase/auth";
 import { AiOutlineShoppingCart } from "react-icons/ai";
-import fetchWeather from "../utils";
 import Weather from "./Weather";
 const themes = {
   winter: "winter",
@@ -15,7 +14,7 @@ function LocalStorageTheme() {
   return localStorage.getItem("mode") || themes.winter;
 }
 const Navbar = () => {
-  const numItemsInCart = useSelector((state) => state.cartState.numItemsInCart);
+  const numItemsInCart = useSelector((state) => state.cartState.totalQuantity);
   const { user } = useSelector((state) => state.userState);
   const [theme, setTheme] = useState(LocalStorageTheme());
   function handleClick() {
@@ -36,7 +35,6 @@ const Navbar = () => {
             Kitchen app
           </Link>
           <Link className="btn btn-primary flex lg:hidden">MK</Link>
-          
         </div>
         <Weather />
         <div className="navbar-end">
