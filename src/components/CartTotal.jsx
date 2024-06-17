@@ -41,11 +41,11 @@ const CartTotal = () => {
         </p>
         <p className="flex justify-between text-xs border-b border-base-300 pb-2">
           <span className="text-xl">Total orders:</span>
-          <span className="font-medium">{cartTotal}</span>
+          <span className="text-xl font-medium">{cartTotal}</span>
         </p>
         <p className="flex justify-between text-sm mt-4 pb-2">
           <span className="text-xl">Order Total:</span>
-          <span className="font-medium">{discountedTotal}.00$</span>
+          <span className="text-xl font-medium">{discountedTotal}.00$</span>
         </p>
       </div>
     </div>
