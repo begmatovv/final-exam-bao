@@ -4,7 +4,7 @@ const initialState = {
   items: [],
   orderTotal: 0,
   discount: 0,
-  totalQuantity: 0, // New field for total quantity
+  totalQuantity: 0, 
 };
 
 export const cartSlice = createSlice({
@@ -20,7 +20,7 @@ export const cartSlice = createSlice({
         state.items.push({ ...payload, quantity: payload.quantity });
         state.orderTotal += payload.price * payload.quantity;
       }
-      state.totalQuantity += payload.quantity; // Update total quantity
+      state.totalQuantity += payload.quantity; 
     },
     itemMinus(state, { payload }) {
       const existingItem = state.items.find((item) => item.id === payload);
@@ -32,7 +32,7 @@ export const cartSlice = createSlice({
           state.orderTotal -= existingItem.price;
           state.items = state.items.filter((item) => item.id !== payload);
         }
-        state.totalQuantity -= 1; // Update total quantity
+        state.totalQuantity -= 1; 
       }
     },
     itemPlus(state, { payload }) {
@@ -40,7 +40,7 @@ export const cartSlice = createSlice({
       if (existingItem) {
         existingItem.quantity += 1;
         state.orderTotal += existingItem.price;
-        state.totalQuantity += 1; // Update total quantity
+        state.totalQuantity += 1; 
       }
     },
     applyDiscount(state, { payload }) {
@@ -51,7 +51,7 @@ export const cartSlice = createSlice({
       state.items = [];
       state.orderTotal = 0;
       state.discount = 0;
-      state.totalQuantity = 0; // Reset total quantity
+      state.totalQuantity = 0; 
     },
   },
 });

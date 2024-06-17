@@ -8,7 +8,11 @@ const Cart = () => {
   const cartItems = useSelector((state) => state.cartState.items);
 
   if (cartItems.length === 0) {
-    return "Your cart is Empty";
+    return (
+      <div className="flex items-center justify-center h-screen">
+        <p className="text-2xl">Your cart is Empty</p>
+      </div>
+    );
   }
 
   return (
