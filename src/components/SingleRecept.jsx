@@ -86,7 +86,7 @@ const SingleRecept = () => {
             <p>{data.method}</p>
           </div>
           <div className="text-xl mb-6">
-            Price: <span className="text-green-500">{data.price}$</span>
+            Price: <span className="text-green-500">{data.price}.00$</span>
           </div>
           <div className="mb-5 text-center flex gap-10">
             <div className="flex  items-center gap-5">

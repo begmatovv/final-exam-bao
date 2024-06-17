@@ -22,9 +22,9 @@ function CartItem({ item }) {
   };
 
   return (
-    <li className="flex flex-col items-center shadow-xl p-5 rounded-lg justify-between">
+    <li className="flex flex-col items-center shadow-xl p-3 rounded-lg justify-between">
       <img
-        className="rounded-full max-w-[300px] max-h-[300px]  mb-2 "
+        className="rounded-full max-w-[300px] max-h-[300px]  mb-2"
         src={item.image}
         alt=""
       />
