@@ -24,7 +24,7 @@ const CartTotal = () => {
   return (
     <div className="card bg-base-200">
       <div className="card-body">
-        <p className="flex justify-between items-center text-sm my-4 pb-2">
+        <p className="flex justify-between flex-col items-center text-sm my-4 pb-2">
           <div>
             <span className="text-xl">Promocode:</span>
             <input
@@ -32,12 +32,13 @@ const CartTotal = () => {
               value={promoCode}
               placeholder="BAO"
               onChange={(e) => setPromoCode(e.target.value)}
-              className="outline-none bg-base-300 rounded-md p-3"
+              className="outline-none bg-base-300 rounded-md p-3 w-full mb-4"
             />
-          </div>
-          <button onClick={applyPromoCode} className="btn bg-base-300 ">
+             <button onClick={applyPromoCode} className="btn w-full btn-primary">
             Apply
           </button>
+          </div>
+         
         </p>
         <p className="flex justify-between text-xs border-b border-base-300 pb-2">
           <span className="text-xl">Total orders:</span>
